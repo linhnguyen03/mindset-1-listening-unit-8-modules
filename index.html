@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MINDSET 1 Unit 8</title>
+<style>
+  :root{--navy:#1b2a41;--blue:#2f6690;--teal:#3a7d8c;--sand:#f6f3ea;--card:#fff;--ok:#2e7d32;--bad:#c0392b;--muted:#6b7280;--line:#e5e0d3;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Segoe UI',Tahoma,Verdana,sans-serif;background:var(--sand);color:#222;line-height:1.6;}
+  header{background:var(--navy);color:#fff;padding:28px 20px;text-align:center;}
+  header h1{margin:0;font-size:1.6em;}
+  header p{margin:6px 0 0;color:#cfd8e3;}
+  .wrap{max-width:900px;margin:0 auto;padding:20px;}
+  .section-title{background:var(--navy);color:#fff;padding:10px 18px;border-radius:8px;font-size:1.2em;margin:10px 0 16px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin-bottom:22px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .ex-title{color:var(--navy);font-size:1.15em;margin:0 0 4px;border-bottom:3px solid var(--teal);display:inline-block;padding-bottom:4px;}
+  .ex-instructions{color:var(--muted);font-style:italic;margin:8px 0 16px;}
+  .q{margin:14px 0;padding:10px 0;border-bottom:1px solid #f0ede2;}
+  .q:last-child{border-bottom:none;}
+  .q-num{font-weight:700;color:var(--navy);margin-right:6px;}
+  .opts label{display:inline-block;margin:4px 14px 4px 0;cursor:pointer;}
+  .blank-input{border:none;border-bottom:2px solid var(--blue);background:transparent;padding:4px 6px;font-size:1em;width:150px;text-align:center;font-family:inherit;}
+  .blank-input:focus{outline:none;border-color:var(--teal);}
+  select.blank-input{width:190px;}
+  .wordbank{background:#eef3f6;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-weight:600;color:var(--blue);letter-spacing:.5px;}
+  .feedback{margin-left:8px;font-weight:700;}
+  .feedback.correct{color:var(--ok);}
+  .feedback.wrong{color:var(--bad);}
+  .correct-answer{color:var(--ok);font-style:italic;margin-left:6px;}
+  .locked{opacity:.85;}
+  .submit-bar{position:sticky;bottom:0;background:var(--sand);padding:16px 0;text-align:center;border-top:1px solid var(--line);}
+  button{background:var(--blue);color:#fff;border:none;padding:12px 26px;border-radius:8px;font-size:1.05em;cursor:pointer;font-weight:600;}
+  button:hover{background:var(--teal);}
+  button.secondary{background:transparent;color:var(--blue);border:2px solid var(--blue);}
+  #scoreBoard{max-width:900px;margin:0 auto;padding:0 20px;}
+  #scoreBoard .score-card{background:var(--navy);color:#fff;border-radius:12px;padding:20px 24px;text-align:center;margin-bottom:20px;display:none;}
+  #scoreBoard .score-card h2{margin:0 0 4px;font-size:2em;}
+  .passage{line-height:2.2;}
+  .animal-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;}
+  @media (max-width:640px){.animal-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>MINDSET 1 Unit 8</h1>
+  <p>Natural World</p>
+</header>
+
+<div id="scoreBoard">
+  <div class="score-card" id="scoreCard">
+    <h2 id="scoreText">0 / 0</h2>
+    <p id="scoreMsg"></p>
+  </div>
+</div>
+
+<div class="wrap" id="quizArea">
+
+  <div class="card">
+    <h2 class="ex-title">Exercise 1</h2>
+    <p class="ex-instructions">Put the words in the correct categories to complete the table.</p>
+    <div class="wordbank">bear &nbsp; shark &nbsp; butterfly &nbsp; eagle &nbsp; snake &nbsp; crocodile &nbsp; whale &nbsp; penguin &nbsp; salmon &nbsp; bee &nbsp; seahorse &nbsp; rabbit &nbsp; frog &nbsp; lizard &nbsp; parrot &nbsp; ant</div>
+    <p style="font-size:.9em;color:var(--muted);">Reptiles: animals that lay eggs and use the sun to keep their blood warm. Amphibians: animals that live both on land and in water.</p>
+    <div class="animal-grid" id="ex1"></div>
+  </div>
+
+  <div class="card">
+    <h2 class="ex-title">Exercise 2</h2>
+    <p class="ex-instructions">Look at the plant and animal characteristics. Which are the odd ones out? Choose the <u>incorrect</u> answers.</p>
+    <div id="ex2"></div>
+  </div>
+
+  <div class="card">
+    <h2 class="ex-title">Exercise 3</h2>
+    <p class="ex-instructions">Complete the text. Use the words and phrases in the box.</p>
+    <div class="wordbank">common &nbsp; conservation &nbsp; endangered species &nbsp; habitat &nbsp; population &nbsp; rare &nbsp; risk &nbsp; wildlife</div>
+    <p class="passage" id="ex3"></p>
+  </div>
+
+  <div class="card">
+    <h2 class="ex-title">Exercise 4</h2>
+    <p class="ex-instructions">Match the words and phrases with the definitions.</p>
+    <div class="wordbank">climate change &nbsp; global warming &nbsp; green issues &nbsp; greenhouse gases &nbsp; pollution &nbsp; the environment &nbsp; the greenhouse effect &nbsp; the ozone layer</div>
+    <div id="ex4"></div>
+  </div>
+
+  <div class="card">
+    <h2 class="ex-title">Exercise 5</h2>
+    <p class="ex-instructions">Choose the correct words to complete the sentences.</p>
+    <div id="ex5"></div>
+  </div>
+
+  <div class="submit-bar">
+    <button onclick="gradeAll()">✅ Check my answers</button>
+    <button class="secondary" onclick="resetAll()">↺ Reset</button>
+  </div>
+
+</div>
+
+<script>
+const KEY = {
+  ex1: {"bear":"Mammals","rabbit":"Mammals","whale":"Mammals","crocodile":"Reptiles","lizard":"Reptiles","snake":"Reptiles","frog":"Amphibians","seahorse":"Fish","shark":"Fish","salmon":"Fish","eagle":"Birds","penguin":"Birds","parrot":"Birds","ant":"Insects","bee":"Insects","butterfly":"Insects"},
+  ex2: ["claws","antlers","rumps","leathers","trunks","fins","fur"],
+  ex3: ["wildlife","habitat","conservation","endangered species","rare","common","risk"],
+  ex4: ["the environment","green issues","global warming","the ozone layer","climate change","pollution","the greenhouse effect","greenhouse gases"],
+  ex5: ["save","protect","produce","causes","increasing","destroy","survive","damaging"]
+};
+
+function mark(id, ok, ans){
+  const el = document.getElementById(id);
+  if(!el) return;
+  if(ok){ el.innerHTML = "✔"; el.className = "feedback correct"; }
+  else { el.innerHTML = `✘ <span class="correct-answer">(answer: ${ans})</span>`; el.className = "feedback wrong"; }
+}
+function getRadio(name){
+  const r = document.querySelector(`input[name="${name}"]:checked`);
+  return r ? r.value : null;
+}
+function opt(list){ return list.map(o=>`<option value="${o}">${o}</option>`).join(''); }
+
+/* Ex1 */
+const cats = ["Mammals","Reptiles","Amphibians","Fish","Birds","Insects"];
+const animals = ["bear","shark","butterfly","eagle","snake","crocodile","whale","penguin","salmon","bee","seahorse","rabbit","frog","lizard","parrot","ant"];
+document.getElementById('ex1').innerHTML = animals.map((a,i)=>`
+  <div class="q"><span class="q-num">${i+1}.</span> ${a}
+  <select class="blank-input" id="ex1-${i}" style="width:140px"><option value="">--</option>${opt(cats)}</select>
+  <span class="feedback" id="ex1-fb-${i}"></span></div>`).join('');
+
+/* Ex2 */
+const ex2data = [
+  {t:"Trees have", o:["branches","claws","leaves"]},
+  {t:"Bears have", o:["antlers","fur","teeth"]},
+  {t:"Eagles have", o:["beaks","rumps","wings"]},
+  {t:"Elephants have", o:["leathers","thick skins","trunks"]},
+  {t:"Salmon have", o:["scales","tails","trunks"]},
+  {t:"Crocodiles have", o:["fins","scales","teeth"]},
+  {t:"Rhinos have", o:["bone","fur","horns"]}
+];
+document.getElementById('ex2').innerHTML = ex2data.map((it,i)=>`
+  <div class="q"><span class="q-num">${i+1}.</span> ${it.t}
+  <span class="opts">${it.o.map(o=>`<label><input type="radio" name="ex2-${i}" value="${o}"> ${o}</label>`).join('')}</span>
+  <span class="feedback" id="ex2-fb-${i}"></span></div>`).join('');
+
+/* Ex3 */
+const wb3 = ["common","conservation","endangered species","habitat","population","rare","risk","wildlife"];
+const s3 = i => `<select class="blank-input" id="ex3-${i}" style="width:170px"><option value="">--</option>${opt(wb3)}</select><span class="feedback" id="ex3-fb-${i}"></span>`;
+document.getElementById('ex3').innerHTML =
+`I believe that people have a responsibility to take care of ${s3(0)}. The best way to do this is to protect the places where they live — their natural ${s3(1)}. That's why I decided to take part in a local ${s3(2)} project to protect the plants and animals in a forest near my town. The forest is home to several ${s3(3)} — types of animals and plants which may soon not exist because there are so few of them. For example, there are some very ${s3(4)} birds, which are only found in a few small areas now — there are probably fewer than 500 of them left in the wild. Fifty years ago, there were lots of them everywhere — they were a lot more ${s3(5)}. Anyway, thanks to our conservation project, the bird population is slowly going up again. The birds are still at ${s3(6)}, but hopefully we'll be able to save them.`;
+
+/* Ex4 */
+const ex4data = [
+  "The general name for the natural world: the air, water and land in or on which people, animals and plants live",
+  "Connected to the protection of the environment",
+  "The increase in world temperatures",
+  "The layer of air high above the Earth that protects it from the sun's rays",
+  "Changes in the world's weather due to air pollution",
+  "Damage to water, air or land due to human behavior",
+  "When heat from the Earth can't escape into space, and so the Earth gets hotter and hotter",
+  "Gases like carbon dioxide (CO2) which stop heat from the Earth escaping into space"
+];
+const wb4 = ["climate change","global warming","green issues","greenhouse gases","pollution","the environment","the greenhouse effect","the ozone layer"];
+document.getElementById('ex4').innerHTML = ex4data.map((t,i)=>`
+  <div class="q"><span class="q-num">${i+1}.</span> ${t}:<br>
+  <select class="blank-input" id="ex4-${i}" style="width:220px"><option value="">--</option>${opt(wb4)}</select>
+  <span class="feedback" id="ex4-fb-${i}"></span></div>`).join('');
+
+/* Ex5 */
+const ex5data = [
+  {p:"Is it too late to ", o:["cause","produce","save"], s:" our planet? I don't think so."},
+  {p:"I think we should do more to ", o:["damage","destroy","protect"], s:" the environment."},
+  {p:"Power stations don't just ", o:["damage","produce","survive"], s:" electricity; they also cause pollution."},
+  {p:"A lot of people believe that pollution ", o:["causes","goes","saves"], s:" global warming, but some people think the Earth is getting hotter by itself."},
+  {p:"The population fell to below 100 animals, but a group of conservationists worked very hard and the number is now ", o:["declining","dying","increasing"], s:" — it's going up again."},
+  {p:"I think it's wrong to cut down rainforests and ", o:["destroy","go","recover"], s:" animals' natural habitats."},
+  {p:"When we cut down rainforests, etc., we make it impossible for the animals and plants that live there to ", o:["protect","save","survive"], s:"."},
+  {p:"Don't break the branches on that tree! It's alive and you're ", o:["causing","damaging","recovering"], s:" it!"}
+];
+document.getElementById('ex5').innerHTML = ex5data.map((it,i)=>`
+  <div class="q"><span class="q-num">${i+1}.</span> ${it.p}<select class="blank-input" id="ex5-${i}" style="width:130px"><option value="">--</option>${opt(it.o)}</select>${it.s}
+  <span class="feedback" id="ex5-fb-${i}"></span></div>`).join('');
+
+function gradeAll(){
+  let total=0, scored=0;
+
+  animals.forEach((a,i)=>{
+    const ans = KEY.ex1[a], ok = document.getElementById(`ex1-${i}`).value===ans;
+    total++; if(ok) scored++; mark(`ex1-fb-${i}`, ok, ans);
+  });
+  KEY.ex2.forEach((ans,i)=>{
+    const ok = getRadio(`ex2-${i}`)===ans;
+    total++; if(ok) scored++; mark(`ex2-fb-${i}`, ok, ans);
+  });
+  KEY.ex3.forEach((ans,i)=>{
+    const ok = document.getElementById(`ex3-${i}`).value===ans;
+    total++; if(ok) scored++; mark(`ex3-fb-${i}`, ok, ans);
+  });
+  KEY.ex4.forEach((ans,i)=>{
+    const ok = document.getElementById(`ex4-${i}`).value===ans;
+    total++; if(ok) scored++; mark(`ex4-fb-${i}`, ok, ans);
+  });
+  KEY.ex5.forEach((ans,i)=>{
+    const ok = document.getElementById(`ex5-${i}`).value===ans;
+    total++; if(ok) scored++; mark(`ex5-fb-${i}`, ok, ans);
+  });
+
+  document.querySelectorAll('#quizArea input, #quizArea select').forEach(el=>{ el.disabled = true; });
+  document.getElementById('quizArea').classList.add('locked');
+  document.getElementById('scoreCard').style.display='block';
+  document.getElementById('scoreText').textContent = `${scored} / ${total}`;
+  const pct = Math.round(scored/total*100);
+  let msg = pct>=90 ? "Excellent work! 🎉" : pct>=70 ? "Good job — review the ones you missed." : pct>=50 ? "Nice try — check the highlighted answers." : "Keep practicing — review this unit's material and try again.";
+  document.getElementById('scoreMsg').textContent = `${pct}% correct. ${msg}`;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function resetAll(){ location.reload(); }
+</script>
+</body>
+</html>
